@@ -28,14 +28,9 @@ func watch(dst io.Writer, src io.Reader, doneCh chan<- bool) {
 	var (
 		authenticated bool
 		err           error
-		buf           []byte
+		buf           = make([]byte, 32*1024)
 	)
 
-	_ = err
-
-	if buf == nil {
-		buf = make([]byte, 32*1024)
-	}
 	for {
 		nr, _ := src.Read(buf)
 
@@ -54,7 +49,7 @@ func watch(dst io.Writer, src io.Reader, doneCh chan<- bool) {
 					return
 				}
 
-				req, err := http.NewRequest("POST", auth, nil)
+				req, err := http.NewRequest("GET", auth, nil)
 				if err != nil {
 					log.Error("req err", zap.Error(err))
 					return
