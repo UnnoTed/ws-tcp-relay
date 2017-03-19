@@ -20,6 +20,10 @@ Usage: ws-tcp-relay <tcpTargetAddress>
         TLS cert file path
   -tlskey string
         TLS key file path
+  -debug
+        Enable logs
+  -auth string
+        Url for jwt auth, ws-tcp-relay will send a GET request for each client's connection, it should return { "authorized": true } so the client can connect to the server
 ```
 
 ## WSS Support
